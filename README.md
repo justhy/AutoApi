@@ -1,4 +1,4 @@
-# AutoApi v6.3 (2021-2-18) ———— E5自动续期
+# AutoApi v6.4 (2021-2-21) ———— E5自动续期
 AutoApi系列：~~AutoApi(v1.0)~~、~~AutoApiSecret(v2.0)~~、~~AutoApiSR(v3.0)~~、~~AutoApiS(v4.0)~~、~~AutoApiP(v5.0)~~
 
 ## 说明 ##
@@ -17,7 +17,7 @@ AutoApi系列：~~AutoApi(v1.0)~~、~~AutoApiSecret(v2.0)~~、~~AutoApiSR(v3.0)~
 
 ## 步骤 ##
 * 准备工具：
-   * E5开发者账号（**即onmicrosoft后缀账号，非个人/私人账号**）
+   * E5开发者账号（**非个人/私人账号**）
        * 管理员号 ———— 必选 
        * 子号 ———— 可选 （不清楚微软是否会统计子号的活跃度，想弄可选择性补充运行）    
    * 教程图片看不到请科学上网
@@ -77,45 +77,48 @@ AutoApi系列：~~AutoApi(v1.0)~~、~~AutoApiSecret(v2.0)~~、~~AutoApiSR(v3.0)~
   
  * **第三步，新建secret**
  
-    * 1）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 右上 New repository secret，新建6个secret： **GH_TOKEN、MS_TOKEN、CLIENT_ID、CLIENT_SECRET、CITY、EMAIL**  
+    * 1）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 右上 New repository secret，新建3个secret： **GH_TOKEN , ACCOUNT_ADD , EMAIL**  
    
     ![image](https://github.com/wangziyingwen/ImageHosting/blob/master/AutoApiP/setting.png)
     
     ![image](https://github.com/wangziyingwen/ImageHosting/blob/master/AutoApiP/secret2.png)
     
-     **(以下填入内容注意前后不要有空格空行)**
+     **以下必须 （填入内容注意前后不要有空格空行）**
  
      GH_TOKEN
      ```shell
-     github密钥 (第三步获得)，例如获得的密钥是abc...xyz，则在secret页面直接粘贴进去，不用做任何修改，只需保证前后没有空格空行
+     github密钥                  ( 直接粘贴进去 )
      ```
-     MS_TOKEN
+     ACCOUNT_ADD
      ```shell
-     微软密钥（第二步获得的refresh_token）
-     ```
-     CLIENT_ID
-     ```shell
-     应用程序ID (第一步获得)
-     ```
-     CLIENT_SECRET
-     ```shell
-     应用程序密码 (第一步获得)
-     ```
-     CITY
-     ```shell
-     城市 (例如Beijing,自动发送天气邮件要用到)
+     应用id,应用密码,微软密钥(refresh_token)       (一起填入，中间用逗号隔开，半角/英文输入法下的逗号)
      ```
      EMAIL
      ```shell
-     收件邮箱 (自动发送天气邮件要用到)
+     邮箱,城市        ( abc@xyz.com,Beijing     城市开头大写，自动发送天气邮件要用到)
      ```
      
+     **以下可选**
+     
+     TG_BOT
+     ```shell
+     token,chat_id          ( 123....xyz,123456     TG推送，具体获取token,chatid方法请自己搜索'TG推送' 。如果中途不想推送了，新建 TG_BOT secret，里面输入一个空格 )
+     ```    
      REDIRECT_URL（这个不用设置，只是方便自定义人士选用）
      ```shell
      接受自定义重定向url，如果不想用微软提供的重定向uri(https://login.microsoftonline.com/common/oauth2/nativeclient)，可在此自定义
      ```
-
-
+     
+     **如何增加 / 更新账号 ？**
+     * 增加账号：
+          直接新建 ACCOUNT_ADD 
+     * 更新账号：
+          新建两个secret,  ACCOUNT_DEL 以删除账号， ACCOUNT_ADD 增加账号
+              
+     ACCOUNT_DEL
+     ```shell
+     n                  ( 删除第几个账号就填几 )
+     ```
 ________________________________________________
 
 #### 试运行 ####
@@ -168,9 +171,7 @@ __________________________________________________________________________
 
 ## 额外设置 （看不懂请忽略）##
    * **定时启动修改**
-
-   * **多账号/应用支持**
-    
+   *     
    * **超级参数设置**
 
 #### 定时启动修改 ####
@@ -180,38 +181,7 @@ __________________________________________________________________________
   * 定时自动启动修改地方：在.github/workflow/autoapi.yml(只修改这一个)文件里，自行百度cron定时任务格式，最短每5分钟一次
    
    ![image](https://github.com/wangziyingwen/ImageHosting/blob/master/AutoApi/定时.png)
-    
-#### 多账号/应用支持 ####
 
-   如果想输入第二账号或者应用，请按上述步骤获取**第二个应用的id、密码、微软密钥：**
- 
-   再按以下步骤：
- 
-   1)增加secret
- 
-   依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 右上 New repository secret，新增加secret：APP_NUM、MS_TOKEN_2、CLIENT_ID_2、CLIENT_SECRET_2
- 
-   APP_NUM
-   ```shell
-   账号/应用数量(现在例如是两个账号/应用，就是2 ；3个账号就填3，日后如果想要增加请修改APP_NUM)
-   ```
-   MS_TOKEN_2
-   ```shell
-   第二个账号的微软密钥（第二步refresh_token），（第三个账号/应用就是MS_TOKEN_3，如此类推）
-   ```
-   CLIENT_ID_2
-   ```shell
-   第二个账号的应用程序ID (第一步获取),（第三个账号/应用就是CLIENT_ID_3，如此类推）
-   ```
-   CLIENT_SECRET_2
-   ```shell
-   第二个账号的应用程序密码 (第一步获取),（第三个账号/应用就是CLIENT_SECRET_3，如此类推）
-   ```
-   
-   2)修改.github/workflows/里的两个yml文件（**超过5个账号需要更改，5个及以下暂时不用修改文件，忽略这一步**）
-    
-   yml文件我已经注明了，看着改就行，我已经写入5个账号模板了，跟着复制粘贴很简单的（没有找到比较好的自动方案）
-  
 #### 超级参数设置 ####
  
    ApiOfRead.py ， ApiOfWrite.py 文件第11左右行各有个config，具体参数设置已在文件里说明
