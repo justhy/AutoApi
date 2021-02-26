@@ -33,10 +33,10 @@ log_list=['']*app_count
 ########################################
 config = {
          'allstart': 0,
-         'rounds': 1,
-         'rounds_delay': [1,30,180],
-         'api_delay': [1,30,300],
-         'app_delay': [1,30,180],
+         'rounds': 0,
+         'rounds_delay': [0,30,180],
+         'api_delay': [0,30,300],
+         'app_delay': [0,30,180],
          }
 
 #微软refresh_token获取
