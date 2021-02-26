@@ -33,9 +33,9 @@ log_list=[0]*app_count
 config = {
          'api_rand': 1,
          'rounds': 3,
-         'rounds_delay': [1,60,120],
-         'api_delay': [1,2,6],
-         'app_delay': [1,30,60],
+         'rounds_delay': [1,60,600],
+         'api_delay': [1,30,300],
+         'app_delay': [1,30,180],
          }
 api_list = [
            r'https://graph.microsoft.com/v1.0/me/',
