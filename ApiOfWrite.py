@@ -32,11 +32,11 @@ log_list=['']*app_count
 # app_delay: 是否开启账号之间的延时，默认0关闭
 ########################################
 config = {
-         'allstart': 0,
+         'allstart': 1,
          'rounds': 0,
          'rounds_delay': [1,600,1800],
-         'api_delay': [1,300,1200],
-         'app_delay': [1,60,300],
+         'api_delay': [1,600,1800],
+         'app_delay': [1,600,1200],
          }
 
 #微软refresh_token获取
