@@ -2,7 +2,7 @@
 import os
 import xlsxwriter
 import requests as req
-import json,sys,random
+import json,sys,time,random
 
 if os.getenv('ACCOUNT')== '' or os.getenv('OTHER_CONFIG') == '':
     print("<<<<<<<<<<<<<配置初始化中>>>>>>>>>>>>>")
@@ -34,9 +34,9 @@ log_list=['']*app_count
 config = {
          'allstart': 0,
          'rounds': 0,
-         'rounds_delay': [0,30,180],
-         'api_delay': [0,30,300],
-         'app_delay': [0,30,180],
+         'rounds_delay': [1,600,1800],
+         'api_delay': [1,300,1200],
+         'app_delay': [1,60,300],
          }
 
 #微软refresh_token获取
